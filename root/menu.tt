@@ -2,10 +2,11 @@
 <form name="doc_select" method="post" action="[% c.uri_for('/docs/search') %]">
 <input type="hidden" name="doc" value="_remove">
 [% node = corpus.doctree; pathfinder = corpus.pathfinder %]
-<ul class="sf-menu">
+<form name='doc_select' action="[% c.uri_for('/docs/search') %]" method="post">
+<ul>
 [% all_nodes(node) %]
 <input type="submit" value="search">
-<form>
+</form>
 [% END %]
 
 [% MACRO all_nodes(node) BLOCK %]
