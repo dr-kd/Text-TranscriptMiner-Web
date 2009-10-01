@@ -1,3 +1,13 @@
+<script type="text/javascript">
+$(document).ready(function() {
+    // put all your jQuery goodness in here.
+    $('button.show_tags').click(function() {
+       $('div#tag_list').append('Boo!');
+       return false;
+    });
+});
+</script>
+</head>
 [% IF error %] <div class="error">
 [% error %]
 </div>
@@ -9,6 +19,7 @@
      [% FOREACH i IN docs %]
          <tr><td class="data"> <input type="hidden" name="doc" value="[% i %]">  [% i %] </td></tr>
      [% END %]
-     <tr><td class="data"><input type="submit" name="tag_search" value="View Codes"></td></tr>
+     <tr><td class="data"><button class="show_tags">Show Tags</button></td></tr>
      </table>
      </form>
+<div id="tag_list"></div>
