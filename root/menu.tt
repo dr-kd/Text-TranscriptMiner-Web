@@ -1,16 +1,19 @@
 [% MACRO render_menu(corpus) BLOCK  -%]
+<form name="doc_select" method="post" action="[% c.uri_for('/docs/search') %]">
+<input type="hidden" name="doc" value="_remove">
 [% node = corpus.doctree; pathfinder = corpus.pathfinder %]
 <ul class="sf-menu">
 [% all_nodes(node) %]
+<input type="submit" value="search">
+<form>
 [% END %]
 
 [% MACRO all_nodes(node) BLOCK %]
 [% render_submenu(node) %]
 [%- END -%]
-
 [%- MACRO render_submenu(node) BLOCK -%]
 [%- FOREACH item IN node.getAllChildren -%]
-[% SET visitor = item.accept(pathfinder) %]   <li> <a href="[% c.uri_for( 'docs', visitor.join('/') )%]"> [% item.getNodeValue %] </a> [% IF item.getAllChildren.size %] <ul> [% render_submenu(item) %] </ul> [% END %]  </li> 
+[% SET visitor = item.accept(pathfinder) %]   <li> <input type="checkbox" name="[% visitor.join('/') %]"> <a href="[% c.uri_for( 'docs', visitor.join('/') )%]"> [% item.getNodeValue %] </a> [% IF item.getAllChildren.size %] <ul> [% render_submenu(item) %] </ul> [% END %]  </li> 
 [%- END -%]
 [%- END -%]
 </ul>

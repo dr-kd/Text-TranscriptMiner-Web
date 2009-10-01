@@ -1,0 +1,1 @@
+[% USE dumper; dumper.dump_html(c.req.params) %]
