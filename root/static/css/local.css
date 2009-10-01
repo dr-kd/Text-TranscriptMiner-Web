@@ -7,7 +7,7 @@ body {
 }
 
 table { border: 1px solid #789DB3;}
-table td.data { border: none; text-align: center;  }
-table td.id { border: none; text-align: left;  }
-table th.data { border: none; background-color: #ccf; text-align: center;  }
+table td.data { border: none; text-align: center; background-color: #eef; border: 1px solid white; }
+table td.id { border: none; text-align: left; background-color: #eef; border: 1px solid white; }
+table th.data { border: none; background-color: #ccf; text-align: center; padding-right:5px;  }
 table th.id { border: none; background-color: #ccf; text-align: left;  }
