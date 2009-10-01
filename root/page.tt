@@ -10,10 +10,8 @@
 <script type="text/javascript" src="[% c.uri_for('/static/css/elastic.js') %]"></script>
  <link rel="stylesheet" href="[% c.uri_for('/static/css/local.css')  %]" type="text/css" media="screen, projection">
 
-</head>
-<body>
-<div class="unit">
 [% content %]
+
 </div>
 </body>
 </html>
