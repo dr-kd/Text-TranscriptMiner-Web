@@ -1,3 +1,22 @@
 [% PROCESS menu.tt %]
-[% render_menu(corpus) %]
+
+<div class="unit on-2 columns">  
+    <div class="container" style="width:800px;">  
+        <div class="fixed column" style="width:650px;">  
+     <h2> Documents in Library </h2>
+        [% render_menu(corpus) %]  
+        </div>  
+        <div class="elastic column">  
+     <h2> File Keywords from Library </h2>
+     <table>
+     <tr><th class="id">Identifier</th><th class="data">Count</th></tr>
+     [% FOREACH i IN corpus.get_files_info %]
+         <tr><td class="id"> [% i.key %] </td> <td class="data"> [% i.value %] </td></tr>
+     [% END %]
+     </table>
+        </div>  
+    </div>  
+ </div>  
+
+
 

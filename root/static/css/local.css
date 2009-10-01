@@ -1,0 +1,13 @@
+body {
+    margin-top:20px;
+    margin-left:20px;
+    margin-right:20px;
+    padding-left:20px;
+    border: 1px solid black;
+}
+
+table { border: 1px solid #789DB3;}
+table td.data { border: none; text-align: center;  }
+table td.id { border: none; text-align: left;  }
+table th.data { border: none; background-color: #ccf; text-align: center;  }
+table th.id { border: none; background-color: #ccf; text-align: left;  }
