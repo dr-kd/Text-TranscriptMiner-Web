@@ -1,3 +1,7 @@
+</head>
+<body>
+<div class="unit">
+
 [% PROCESS menu.tt %]
 <div class="unit on-2 columns">  
     <div class="container" style="width:800px;">  
@@ -9,12 +13,13 @@
      <h2> File Keywords from Library </h2>
      <form name='tag_select' action="[% c.uri_for('/docs/search/tags') %]" method="post">
      <input type="hidden" name="tag" value="_remove">
-     <table>
+    <table>
      <tr><th class="data"></th><th class="id">Identifier</th><th class="data">Count</th></tr>
      [% FOREACH i IN corpus.get_files_info %]
          <tr><td class="data"> <input type="checkbox" name="tag" value="[% i.key %]"></td> <td class="id"> [% i.key %] </td> <td class="data"> [% i.value %] </td></tr>
      [% END %]
-     <tr><td class="data"><td class="id"><input type="submit" name="tag_search" value="Search"></td><td class="data"></td></tr>
+     <tr><td class="data"></td><td class="id"><input type="submit" name="tag_search" value="Search"></td><td class="data"></td></tr>
+     <tr><td class="data"></td><td class="id"><input type="submit" name="save_search" value="Save Results"></td><td class="data"></td></tr>
      </table>
      </form>
         </div>  
