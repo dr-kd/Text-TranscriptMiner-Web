@@ -28,10 +28,15 @@ sub tag_search :Chained("start") :PathPart("tags") :Args(0) {
     $c->stash( template => 'search/tags.tt',
                docs   => $docs,
                error    => $error);
-    
 }
- 
- 1;
+
+sub get_tags : Chained("start") Path('get_tags') : Args(0) {
+    my ($self, $c) = @_;
+    my $docs = $c->req->params->{doc};
+    @$docs = grep { $_ ne '_remove'} @$docs;
+    $c->stash(nowrapper => 1);
+    $c->res->body( join "<br>", @$docs);
+}
 
 
 1;

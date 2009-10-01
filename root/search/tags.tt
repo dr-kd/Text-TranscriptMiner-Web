@@ -1,25 +1,27 @@
+<script type="text/javascript" src="[% c.uri_for('/static/js/jquery.form.js') %]"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-    // put all your jQuery goodness in here.
-    $('button.show_tags').click(function() {
-       $('div#tag_list').append('Boo!');
-       return false;
-    });
-});
-</script>
+        // wait for the DOM to be loaded 
+        $(document).ready(function() { 
+        var options = { target : '#tag_list' };
+        // bind 'myForm' and provide a simple callback function 
+        $('#tag_select').ajaxForm(options);
+}); 
+</script> 
+
 </head>
+<body>
 [% IF error %] <div class="error">
 [% error %]
 </div>
 [% END %]
-     <form name='tag_select' action="#" method="post">
+     <form id="tag_select" name='tag_select' action="[% c.uri_for('get_tags') %]" method="post">
      <table>
      <tr><th class="data">File</th></tr>
      <input type="hidden" name="orig_search" value='[% USE JSON; c.req.params.tag.json %]'>          
      [% FOREACH i IN docs %]
          <tr><td class="data"> <input type="hidden" name="doc" value="[% i %]">  [% i %] </td></tr>
      [% END %]
-     <tr><td class="data"><button class="show_tags">Show Tags</button></td></tr>
+     <tr><td class="data"><input type="submit" value="Show Tags"></td></tr>
      </table>
      </form>
 <div id="tag_list"></div>
