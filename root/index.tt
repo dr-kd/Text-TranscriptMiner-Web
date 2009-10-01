@@ -1,0 +1,3 @@
+[% PROCESS menu.tt %]
+[% render_menu(corpus) %]
+
