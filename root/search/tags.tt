@@ -1,0 +1,14 @@
+[% IF error %] <div class="error">
+[% error %]
+</div>
+[% END %]
+     <form name='tag_select' action="#" method="post">
+     <table>
+     <tr><th class="data">File</th></tr>
+     <input type="hidden" name="orig_search" value='[% USE JSON; c.req.params.tag.json %]'>          
+     [% FOREACH i IN docs %]
+         <tr><td class="data"> <input type="hidden" name="doc" value="[% i %]">  [% i %] </td></tr>
+     [% END %]
+     <tr><td class="data"><input type="submit" name="tag_search" value="View Codes"></td></tr>
+     </table>
+     </form>
