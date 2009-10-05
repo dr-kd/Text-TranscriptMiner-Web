@@ -14,7 +14,11 @@
 [% error %]
 </div>
 [% END %]
-     <form id="tag_select" name='tag_select' action="[% c.uri_for('get_tags') %]" method="post">
+<div class="unit">
+<div class="unit on-2 columns">
+    <div class="container" style="width:800px;">  
+        <div class="fixed column" style="width:650px;">  
+<form id="tag_select" name='tag_select' action="[% c.uri_for('get_tags') %]" method="post">
      <table>
      <tr><th class="data">File</th></tr>
      <input type="hidden" name="orig_search" value='[% USE JSON; c.req.params.tag.json %]'>          
@@ -24,4 +28,7 @@
      <tr><td class="data"><input type="submit" value="Show Tags"></td></tr>
      </table>
      </form>
+     </div>
 <div id="tag_list"></div>
+</div>
+</div>

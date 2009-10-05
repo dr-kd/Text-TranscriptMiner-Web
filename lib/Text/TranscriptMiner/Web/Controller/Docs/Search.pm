@@ -34,8 +34,13 @@ sub get_tags : Chained("start") Path('get_tags') : Args(0) {
     my ($self, $c) = @_;
     my $docs = $c->req->params->{doc};
     @$docs = grep { $_ ne '_remove'} @$docs;
+    $_ = $c->config->{start_dir} . '/'  . $_ for @$docs;
     $c->stash(nowrapper => 1);
-    $c->res->body( join "<br>", @$docs);
+    my $tags =  $c->model('Interview')->get_tags_for_docs(@$docs);
+    $c->stash(nowrapper => 1,
+              tags => $tags,
+              template => 'search/all_tags.tt',
+          );
 }
 
 
