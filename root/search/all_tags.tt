@@ -1,0 +1,6 @@
+<table>
+<tr><th class="id">Tag</th><th class="data">Count</th></tr>
+[% FOREACH i IN tags %]
+<tr><td class="id"><a href="[% c.uri_for(i.key , { 'search' => c.req.params.orig_search}) %]">[% i.key %]</a></td><td class="data">[% i.value %]</td></tr>
+[% END %]
+</table>
