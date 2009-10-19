@@ -2,7 +2,7 @@ package Text::TranscriptMiner::Web::Controller::Docs::Search;
 
 use Moose;
 BEGIN {extends 'Catalyst::Controller'};
-
+use JSON::Any;
 
 sub start :Chained("") :PathPart("docs/search") :CaptureArgs(0) {
     my ($self, $c) = @_;
@@ -43,5 +43,19 @@ sub get_tags : Chained("start") Path('get_tags') : Args(0) {
           );
 }
 
+sub display_text_for_single_tag : Chained("start") PathPart('') Args(1) {
+    my ($self, $c, $tag) = @_;
+    my $j = JSON::Any->new;
+    my $docs = $j->jsonToObj($c->req->params->{search});
+    shift @$docs;
+    my $corpus_object = $c->model('Corpus')->new(
+        {start_dir => $c->config->{start_dir}});
+    my $interviews = $corpus_object->search_for_subnodes($docs);
+    my @interviews = $corpus_object->get_interviews($c->config->{start_dir}, @$interviews);
+    $c->stash(template => 'search/results.tt',
+              search => $tag,
+              interviews => \@interviews,
+          );
+}
 
 1;
