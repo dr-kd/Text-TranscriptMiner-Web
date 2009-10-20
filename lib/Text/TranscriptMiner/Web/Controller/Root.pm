@@ -9,7 +9,6 @@ __PACKAGE__->config->{namespace} = '';
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     $c->forward('get_menu');
-    $DB::single=1;
 }
 
 sub default :Path {

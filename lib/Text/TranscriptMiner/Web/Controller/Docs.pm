@@ -14,7 +14,6 @@ sub file : Path Args {
     }
     else {
         my $doc = $c->model('Interview')->new({file => $file});
-        $DB::single=1;
         $c->stash( template => 'doc.tt',
                    doc => $doc);
     }
