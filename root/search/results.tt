@@ -1,10 +1,10 @@
 <h1>Search for "[% search %]" </h1>
 [% FOREACH i IN interviews %]
-<h2><a href="[% doc_file = i.file.relative(c.config.start_dir); c.uri_for('/docs', doc_file) %]"> [% doc_file %] </h2>
+<h2><a href="[% doc_file = i.file.relative(c.config.start_dir); c.uri_for('/docs', doc_file) %]"> [% doc_file %]</a> </h2>
 
 [% FOREACH res IN i.get_this_tag(search) %]
 
-<p> <div id="result">[% FILTER html_line_break; res; END %] </div></p>
+<p> <div class="result">[% FILTER html_line_break; res; END %] </div></p>
 
 [% END %]
 [% END %]

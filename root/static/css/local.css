@@ -20,7 +20,7 @@ pre {
     word-wrap: break-word;       /* Internet Explorer 5.5+ */  
 }
 
-div#result {
+div.result {
     padding: 3px;
     border:  1px solid black;
     background: #fee
