@@ -25,3 +25,7 @@ div#result {
     border:  1px solid black;
     background: #fee
 }
+
+div.hs {
+    display: none
+}

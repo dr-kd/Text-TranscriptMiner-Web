@@ -1,7 +1,23 @@
+<script type="text/javascript">
+$(document).ready(function() {
+     $('a.hs').click(function() {
+      $(this).parent('li').find('div.hs').toggle();
+     });
+ });
+
+</script>
 <div id="hs_list">
 <ul>
 [% FOREACH i IN codes %]
-<li> [% i.key _ " (count "_ i.value _")" %]   </li>
+<li> <a href="#" class="hs">[% i.key; %]</a> (count [% i.value %])
+<div class="hs">
+[% FOREACH code IN doc.get_tagged_txt(i.key) %]
+<p><div class="result" class="hidden"> 
+[% FILTER html_line_break; code ; END %]
+</div></p>
+[% END %]
+</div>
+</li>
 [% END %]
 </ul>
 </div>
