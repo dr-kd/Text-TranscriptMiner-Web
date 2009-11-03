@@ -14,8 +14,11 @@ sub file : Path Args {
     }
     else {
         my $doc = $c->model('Interview')->new({file => $file});
+        my $codes = $c->model('Interview')->get_tags_for_docs($file);
         $c->stash( template => 'doc.tt',
-                   doc => $doc);
+                   doc => $doc,
+                   codes => $codes,
+               );
     }
 }
 

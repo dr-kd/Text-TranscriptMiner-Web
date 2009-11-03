@@ -1,3 +1,11 @@
-<pre style="white-space: pre-wrap;">
-[% doc.txt %]
-</pre>
+<div id="hs_list">
+<ul>
+[% FOREACH i IN codes %]
+<li> [% i.key _ " (count "_ i.value _")" %]   </li>
+[% END %]
+</ul>
+</div>
+<hr />
+<p>
+[% FILTER html_line_break; doc.txt ; END %]
+</p>
