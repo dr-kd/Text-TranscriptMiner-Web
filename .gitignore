@@ -1,2 +1,3 @@
 lib/Text/TranscriptMiner/Corpus.pm
 lib/Text/TranscriptMiner/Document*
+.DS_Store
