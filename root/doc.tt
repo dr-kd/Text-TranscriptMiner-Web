@@ -3,13 +3,14 @@ $(document).ready(function() {
      $('a.hs').click(function() {
       $(this).parent('li').find('div.hs').toggle();
      });
+     $("a[href = " + location.hash + "]").click();
  });
 
 </script>
 <div id="hs_list">
 <ul>
 [% FOREACH i IN codes %]
-<li> <a href="#" class="hs">[% i.key; %]</a> (count [% i.value %])
+<li> <a href="#[% i.key %]" id="[% i.key %]" class="hs">[% i.key; %]</a> (count [% i.value %])
 <div class="hs">
 [% FOREACH code IN doc.get_tagged_txt(i.key) %]
 <p><div class="result" class="hidden"> 
