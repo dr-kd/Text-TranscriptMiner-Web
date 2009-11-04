@@ -11,7 +11,7 @@
         </div>  
         <div class="elastic column">  
      <h2> File Keywords from Library </h2>
-     <form name='tag_select' action="[% c.uri_for('/docs/search/tags') %]" method="post">
+     <form name='tag_select' action="[% c.uri_for('/docs/search/tags') %]" method="get">
      <input type="hidden" name="tag" value="_remove">
     <table>
      <tr><th class="data"></th><th class="id">Identifier</th><th class="data">Count</th></tr>
