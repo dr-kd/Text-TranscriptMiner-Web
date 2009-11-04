@@ -1,9 +1,12 @@
 <h1>Search for "[% search %]" </h1> [% uncoded = [ ] %]
+<p> This page: [% c.req.uri %]
 [% FOREACH i IN interviews %]
 [% SET doc_file = i.file.relative(c.config.start_dir) %]
 [% SET code_search = i.get_this_tag(search); %]
-[% IF code_search.size == 0; uncoded.push(doc_file); NEXT; END  %]
-<h2><a href="[% c.uri_for('/docs', doc_file) _"#$search" %]"> [% doc_file %]</a> </h2>
+[% IF code_search.size == 0; uncoded.push(doc_file); NEXT; END;
+SET search_url = c.uri_for('/docs', doc_file) _"#$search" %]
+<h2><a href="[% search_url %]"> [% doc_file %]</a> </h2>
+<p> This text's location: [% search_url %] </p>
 [%  FOREACH res IN code_search %]
 <p> <div class="result">[% FILTER html_line_break; res; END %] </div></p>
 [% END %]
@@ -12,7 +15,7 @@
 
 <h2>Documents in this set without the code [% search %]</h2>
 <ul>
-[% FOREACH empty IN uncoded %]
-<li> <a href="[% c.uri_for('/docs', doc_file) _"#$search" %]"> [% doc_file %]</a> </li>
+[% FOREACH empty IN uncoded; SET search_url = c.uri_for('/docs', doc_file) _"#$search" %]
+<li> <a href="[% search_url %]"> [% doc_file %]</a> ( [% search_url %] ) </li>
 [% END %]
 </ul>
