@@ -10,7 +10,13 @@ sub start :Chained("") :PathPart("docs/search") :CaptureArgs(0) {
 
 sub get_root :Chained("start") :PathPart("") :Args(0) {
     my ($self, $c ) = @_;
-    $c->stash( template => 'search/results.tt' );
+    if ($c->req->params->{txt} == 1) {
+        $c->stash( template => 'search/results_txt.tt',
+                   nowrapper => 1);
+    }
+    else {
+        $c->stash( template => 'search/results.tt' );
+    }
 }
 
 sub tag_search :Chained("start") :PathPart("tags") :Args(0) {
@@ -52,7 +58,14 @@ sub display_text_for_single_tag : Chained("start") PathPart('') Args(1) {
         {start_dir => $c->config->{start_dir}});
     my $interviews = $corpus_object->search_for_subnodes($docs);
     my @interviews = $corpus_object->get_interviews($c->config->{start_dir}, @$interviews);
-    $c->stash(template => 'search/results.tt',
+    if ($c->req->params->{txt} == 1) {
+        $c->stash( template => 'search/results_txt.tt',
+                   nowrapper => 1);
+    }
+    else {
+        $c->stash( template => 'search/results.tt' );
+    }
+    $c->stash(
               search => $tag,
               interviews => \@interviews,
           );
