@@ -1,0 +1,15 @@
+</head>
+<body>
+<div class="unit">
+[% PROCESS summaries/menu.tt %]
+<div class="unit on-2 columns">  
+    <div class="container" style="width:800px;">  
+        <div class="fixed column" style="width:650px;">  
+     <h2> Documents in Library </h2>
+     [% render_menu(comparisons.summary_tree) %]  
+        </div>  
+    </div>  
+ </div>  
+
+
+

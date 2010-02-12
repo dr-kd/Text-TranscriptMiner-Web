@@ -1,0 +1,20 @@
+[% MACRO render_menu(corpus) BLOCK  -%]
+<div id="sidetree">
+<div id="sidetreecontrol"><a href="#">Collapse All</a> | <a href="#">Expand All</a></div>
+<ul id="tree">
+[% all_nodes(corpus) %]
+</div>
+[% END %]
+
+[% MACRO all_nodes(node) BLOCK %]
+[% render_submenu(node) %]
+[%- END -%]
+
+[%- MACRO render_submenu(node) BLOCK -%]
+[%- FOREACH item IN node.getAllChildren -%]
+[% NEXT IF item.getNodeValue == "descr.txt" %]
+<li> [% item.getNodeValue %] : [% item.meta_data.keys.join('/') %]  [% IF item.getAllChildren.size %]   <ul> [% render_submenu(item) %] </ul> [% END %]  </li> 
+[%- END -%]
+[%- END -%]
+</ul>
+
