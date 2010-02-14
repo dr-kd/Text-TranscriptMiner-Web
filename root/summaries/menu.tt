@@ -13,8 +13,36 @@
 [%- MACRO render_submenu(node) BLOCK -%]
 [%- FOREACH item IN node.getAllChildren -%]
 [% NEXT IF item.getNodeValue == "descr.txt" %]
-<li> [% item.getNodeValue %] : [% item.meta_data.keys.join('/') %]  [% IF item.getAllChildren.size %]   <ul> [% render_submenu(item) %] </ul> [% END %]  </li> 
+<li> [% print_metadata(node) %] 
+[% IF item.getAllChildren.size %]   <ul> [% render_submenu(item) %] </ul> [% END %]  </li> 
 [%- END -%]
 [%- END -%]
 </ul>
 
+
+[% MACRO print_metadata(node) BLOCK -%]
+[% FOREACH i IN item.getAllChildren %]
+[% NEXT IF i.getNodeValue != 'descr.txt' %]
+<h3>[% i.meta_data.description %]</h3>
+[% SET cmps = i.getMetaDataFor('comparisions'); %]
+<table class="summary">
+<tr><th>Job</th>
+[% FOREACH cm IN cmps.keys; %]
+<th> [% cm %] </th>
+[% END %]</tr>
+
+[% rows = cmps.$cm.keys %]
+[% FOREACH row IN rows %]
+<tr id="[% row %]"><td> [% row %] </td>
+[% FOREACH cm IN cmps.keys %]
+<td>
+[% FOREACH person IN cmps.$cm.$row %]
+ [% IF person.uri %]  <a  href="[% person.uri %]">⃕</a><div id="summary"> <ul>[% FOREACH r IN person.summary %] <li> [% r %] </li> [% END %] </ul>   </div> [% END %]
+[% END %]
+</td>
+[% END %]
+</tr>
+[% END %]
+</table>
+[% END %]
+[% END %]

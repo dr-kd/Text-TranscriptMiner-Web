@@ -19,6 +19,8 @@ sub end : ActionClass('RenderView') {}
 
 sub get_menu :Private {
     my ($self, $c) = @_;
+    warn "TODO: FIX\n";
+    warn "cmp name attribute should be set generically\n";
     my $cmp = $c->model('Summary')->new(
         {
             start_dir => $c->config->{analysis_dir},
