@@ -1,6 +1,4 @@
 [% MACRO render_menu(corpus) BLOCK  -%]
-<div id="sidetree">
-<div id="sidetreecontrol"><a href="#">Collapse All</a> | <a href="#">Expand All</a></div>
 <ul id="tree">
 [% all_nodes(corpus) %]
 </div>
@@ -23,7 +21,7 @@
 [% MACRO print_metadata(node) BLOCK -%]
 [% FOREACH i IN item.getAllChildren %]
 [% NEXT IF i.getNodeValue != 'descr.txt' %]
-<h3>[% i.meta_data.description %]</h3>
+<h3>[% i.meta_data.description %] <a href="#" class="hidesection">toggle</a> </h3>
 [% SET cmps = i.getMetaDataFor('comparisions'); %]
 <table class="summary">
 <tr><th>Job</th>
@@ -33,9 +31,9 @@
 
 [% rows = cmps.$cm.keys %]
 [% FOREACH row IN rows %]
-<tr id="[% row %]"><td> [% row %] </td>
+<tr><td class="[% row %]" > [% row %] </td>
 [% FOREACH cm IN cmps.keys %]
-<td>
+<td class="[% row %]">
 [% FOREACH person IN cmps.$cm.$row %]
  [% IF person.uri %]  <a  href="[% person.uri %]">⃕</a><div id="summary"> <ul>[% FOREACH r IN person.summary %] <li> [% r %] </li> [% END %] </ul>   </div> [% END %]
 [% END %]
