@@ -12,12 +12,14 @@ table td.id { border: none; text-align: left; background-color: #eef; border: 1p
 table th.data { border: none; background-color: #ccf; text-align: center; padding-right:5px;  }
 table th.id { border: none; background-color: #ccf; text-align: left;  }
 
-pre {  
-    white-space: pre-wrap;       /* css-3 */  
-    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */  
-    white-space: -pre-wrap;      /* Opera 4-6 */  
-    white-space: -o-pre-wrap;    /* Opera 7 */  
-    word-wrap: break-word;       /* Internet Explorer 5.5+ */  
+pre {
+ overflow-x: auto; /* Use horizontal scroller if needed; for Firefox 2, not needed in Firefox 3 */
+ white-space: pre-wrap; /* css-3 */
+ white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
+ white-space: -pre-wrap; /* Opera 4-6 */
+ white-space: -o-pre-wrap; /* Opera 7 */
+ /* width: 99%; */
+ word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 
 div.result {
@@ -31,7 +33,31 @@ div.hs {
 }
 
 table.summary { border: 10px solid #789DB3;}
-table.summary td { border: 2px; text-align: right; background-color: #eef; border: 1px solid white; }
+table.summary td { border: 2px; text-align: left; background-color: #eef; border: 1px solid white; text-aligh: left }
 table.summary th { border: none; background-color: #ccf; text-align: center; padding-right:5px;  }
-table.summary th { border: none; background-color: #ccf; text-align: left;  }
 
+
+
+div.context span {
+    display: none;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    border: 3px solid black;
+    background: #fff;
+    width: 30%;
+    height: 500px;
+    overflow: auto;
+}
+
+div.context h4 {
+    text-align: center;
+}
+
+div.context hr {
+    width: 80%;
+}
+
+div.context a {
+    font-size: 0.8em;
+    }

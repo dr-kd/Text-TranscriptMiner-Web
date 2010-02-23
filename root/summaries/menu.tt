@@ -39,8 +39,8 @@
  [% IF person.uri %]
 
 <div class="context">
-<a class="context" style="font-size:0.8em" href="#">show/hide transcript</a>
-<span style="display:none; position:fixed; top:0px; right:0px; border: 3px solid black; background: #fff; width: 30%; height: 500px; overflow: auto;"> <h4 style="text-align: center">[% i.meta_data.description _ " | " _ row  _ " | "  _ cm %]</h4><hr style="width: 80%">[% c.subreq(person.snippet) %]</span>
+<a class="context" href="#">show/hide transcript</a>
+<span > <h4 >[% i.meta_data.description _ " | " _ row  _ " | "  _ cm %]</h4><hr>[% c.subreq(person.snippet) %]</span>
 </div>
 <ul>[% FOREACH r IN person.summary %] <li> [% r %] </li> [% END %] </ul>   </div> [% END %]
 [% END %]
