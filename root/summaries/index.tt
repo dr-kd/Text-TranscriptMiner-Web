@@ -1,4 +1,9 @@
 [%- PROCESS summaries/colours.tt -%]
+<head>
+<!--[if IE]><script src="http://www.uow.edu.au/~kd21/uploads/excanvas.compiled.js"></script><![endif]-->
+</head>
+<script type="text/javascript">
+</script>
 <style type="text/css">
 [% FOREACH category IN comparisons.categories; colour_index = loop.count mod loop.size -%]
 
@@ -14,10 +19,14 @@ $(document).ready(function() {
    });
 [% END %]
 
-   $('a.hidesection').click(function() {
-       $(this).parent().parent().children('table').toggle(); return false;
+   $('a.context').click(function() {
+       $(this).parent().children('span').toggle(); return false;
    });
+
+
 });
+
+
 </script>
 
 </head>

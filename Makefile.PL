@@ -13,6 +13,7 @@ requires 'Catalyst::Action::RenderView';
 requires 'parent';
 requires 'Config::General';
 requires 'Catalyst::View::TT';
+requires 'Catalyst::Plugin::SubRequest';
 requires 'Template::Plugin::JSON';
 catalyst;
 
