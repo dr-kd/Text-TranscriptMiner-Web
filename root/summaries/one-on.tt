@@ -32,15 +32,19 @@ $(document).ready(function() {
 </head>
 <body>
 <div class="unit">
+[% PROCESS summaries/menu.tt %]
 <div class="unit on-2 columns">  
-<div class="container" style="width:800px;">
-    <div style="position: fixed; margin-left: 800px; float: right; border: 1px solid black; padding: 1em;">
-    TODO: display saved searches here?
-    </div>
-    <div class="fixed column" style="width:650px;">  
-         <h2> Choose your matrix here</h2>
-         <p><a href="[% c.uri_for('page') %]">Go to old (hardcoded) report</a></p>
-         [% PROCESS summaries/search_form.tt %]
+    <div class="container" style="width:800px;">
+        <div style="position: fixed; margin-left: 800px; float: right; border: 1px solid black; padding: 1em;">
+            <ul style="display: inline">
+               [% FOREACH category IN comparisons.categories -%]
+               <li><a href="#" id="[% category.replace('\.txt$','') FILTER upper %]">Show/Hide [% category.replace('\.txt$','') FILTER upper %]</a></li>
+[% END %]
+               </ul>
+        </div>
+        <div class="fixed column" style="width:650px;">  
+             <h2> Summaries / Comparisons</h2>
+             [% render_menu(comparisons.summary_tree) %]  
         </div>  
     </div>  
  </div>  

@@ -3,22 +3,19 @@ package Text::TranscriptMiner::Web::Controller::Summaries;
 use strict;
 use warnings;
 use parent 'Catalyst::Controller';
+use Text::TranscriptMiner::Corpus::Comparisons;
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-    $c->forward('get_menu');
-}
-
-sub default :Path {
-    my ( $self, $c ) = @_;
-    $c->response->body( 'Page not found' );
-    $c->response->status(404);
+    my $model = Text::TranscriptMiner::Corpus::Comparisons->new({start_dir => $c->config->{start_dir}});
+    $c->stash(groups => $model->groups);
 }
 
 sub end : ActionClass('RenderView') {}
 
-sub get_menu :Private {
+sub page :Path('page') :Args(0) {
     my ($self, $c) = @_;
+    
     warn "TODO: FIX\n";
     warn "cmp name attribute should be set generically\n";
     my $cmp = $c->model('Summary')->new(
@@ -26,7 +23,25 @@ sub get_menu :Private {
             start_dir => $c->config->{analysis_dir},
             cmp_name  => ['pre_implementation_first_cut', 'summary']
         });
-    $c->stash(comparisons => $cmp);
+    $c->stash(comparisons => $cmp,
+              template    => 'summaries/one-on.tt',
+          );
+}
+
+sub page_generic :Path('page_generic') :Args(0) {
+    my ($self, $c) = @_;
+
+    my $limit = $c->req->params->{limit_by};
+    my $groups = $c->req->params->{groups};
+    my $side = $c->req->params->{side_by_side};
+    foreach ($limit, $groups, $side) {
+        $limit = [$limit] unless ref($limit);
+    }
+    my $model = $c->model('CorpusComparison')
+        ->new({start_dir => $c->config->{start_dir},
+               limit => $limit });
+    $model->groups;
+    $c->stash( groups => $model->groups);
 }
 
 1;

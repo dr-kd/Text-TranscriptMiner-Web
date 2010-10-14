@@ -1,0 +1,18 @@
+<table>
+         <form action="[% c.uri_for('page_generic') %]" method="get">
+         
+         <tr>
+         [% FOREACH i IN groups %] <th> Level [% loop.count %] </th> [% END %]
+         </tr>
+         <tr>
+         [%-
+         max_size = 0; FOREACH x IN groups; IF x.max > max_size; max_size = x.max; END; END; x = [0 .. max_size];
+         FOREACH k IN x;
+         FOREACH j IN groups %]
+         <td> [% IF j.$k  %] 
+         <input type="checkbox" name="[% loop.count %]"  value ="[% j.$k %]">[% j.$k %]</input> [% END %] </td>
+         [%- END %]
+         </tr> [% END %]
+<td><td colspan="[% groups.size %]"><input type="submit" name="submit" value="Generate Report"> </td></tr>
+             </form>
+             </table>

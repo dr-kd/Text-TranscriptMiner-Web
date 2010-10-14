@@ -22,6 +22,7 @@
      <tr><td class="data"></td><td class="id"><input type="submit" name="save_search" value="Save Results"></td><td class="data"></td></tr>
      </table>
      </form>
+     <a href="[% c.uri_for('/summaries') %]">Summary pages</a>
         </div>  
     </div>  
  </div>  
