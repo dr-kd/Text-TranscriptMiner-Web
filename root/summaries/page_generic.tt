@@ -1,4 +1,5 @@
 [%- PROCESS summaries/colours.tt -%]
+[%- PROCESS summaries/js.tt %]
 <head>
 <!--[if IE]><script src="http://www.uow.edu.au/~kd21/uploads/excanvas.compiled.js"></script><![endif]-->
 </head>
@@ -45,7 +46,9 @@ $(document).ready(function() {
         <a href="[% c.req.uri %]">Saved Search</a>
         [%# PROCESS summaries/search_form.tt %]
         <h2> Tabular report here </h2>
-        ...
+        [% USE dumper; dumper.dump_html(tags) %]
+        [% PROCESS summaries/report.tt %]
+        [% render_menu(report) %]
         </div>  
     </div>  
  </div>  

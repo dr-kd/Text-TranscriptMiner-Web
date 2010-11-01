@@ -1,0 +1,38 @@
+[% USE dumper; %]
+[% MACRO render_menu(corpus) BLOCK  -%]
+<ul id="tree">
+[% all_nodes(corpus) %]
+</div>
+[% END %]
+
+[% MACRO all_nodes(node) BLOCK %]
+[% render_submenu(node) %]
+[%- END -%]
+
+[%- MACRO render_submenu(node) BLOCK -%]
+[%- FOREACH item IN node.getAllChildren -%]
+[% NEXT IF item.getNodeValue == "descr.txt" %]
+<li> [% print_metadata(node) %] 
+[% IF item.getAllChildren.size %]   <ul> [% render_submenu(item) %] </ul> [% END %]  </li> 
+[%- END -%]
+[%- END -%]
+</ul>
+
+
+[% MACRO print_metadata(node) BLOCK -%]
+[% FOREACH i IN item.getAllChildren %]
+<li id="[% i.getNodeValue() %]"><h3>NODE: [% i.getMetaDataFor('description') %]</h3></li>
+<div class="[% i.getNodeValue %]" >
+<div class="data" style="display:none">
+<xml id="[% i.getNodeValue%]">
+[%  i.getMetaDataFor('node_data') %]
+</xml>
+</div>
+<div class="display">
+<table>
+<tr><th>content</th></tr>
+</table>
+</div>
+</div>
+[% END %]
+[% END %]
