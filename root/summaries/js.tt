@@ -2,7 +2,7 @@
     <script type="text/javascript">
 
 $(document).ready(function() {
-    [% USE JSON (pretty => 1) %] var params = [% c.req.params.json %];
+    [% USE JSON (pretty => 1) %] var params = [% groups.json %];
 
     $(".data").each(
 
@@ -10,11 +10,8 @@ $(document).ready(function() {
             var data_node = $(".data")[index];
             var current_code = $(data_node).parent().attr('class');
             var xml_data = $(data_node).html();
-            alert(xml_data);
-            return false;
             var display_node = $(".display")[index];
-            $(display_node).append(xml_data);
-            
+//            $(display_node).append("<pre>" + xml_data + "</pre>");
         }
     );
 });
