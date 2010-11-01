@@ -2,3 +2,4 @@ lib/Text/TranscriptMiner/Corpus.pm
 lib/Text/TranscriptMiner/Document*
 .DS_Store
 lib/Text/TranscriptMiner/Summaries.pm
+lib/Text/TranscriptMiner/CodeTree.pm
