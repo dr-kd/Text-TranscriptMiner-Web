@@ -10,7 +10,7 @@
          FOREACH k IN x;
          FOREACH j IN groups %]
          <td> [% IF j.$k  %] 
-         <input type="checkbox" name="[% loop.count %]"  value ="[% j.$k %]">[% j.$k %]</input> [% END %] </td>
+         <input type="checkbox" name="[% loop.index %]"  value ="[% j.$k %]">[% j.$k %]</input> [% END %] </td>
          [%- END %]
          </tr> [% END %]
 <td><td colspan="[% groups.size %]"><input type="submit" name="submit" value="Generate Report"> </td></tr>

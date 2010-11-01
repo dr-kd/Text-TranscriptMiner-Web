@@ -30,18 +30,20 @@ sub page :Path('page') :Args(0) {
 
 sub page_generic :Path('page_generic') :Args(0) {
     my ($self, $c) = @_;
-
-    my $limit = $c->req->params->{limit_by};
-    my $groups = $c->req->params->{groups};
-    my $side = $c->req->params->{side_by_side};
-    foreach ($limit, $groups, $side) {
-        $limit = [$limit] unless ref($limit);
+    $DB::single=1;
+    my $groups = [];
+    foreach my $p (keys %{$c->req->params}) {
+        next unless $p =~ /^\d+$/;
+        $groups->[$p] = $c->req->params->{$p};
+        $groups->[$p] = [$groups->[$p]] if ! ref($groups->[$p]);
     }
     my $model = $c->model('CorpusComparison')
-        ->new({start_dir => $c->config->{start_dir},
-               limit => $limit });
-    $model->groups;
-    $c->stash( groups => $model->groups);
+        ->new({start_dir => $c->config->{start_dir}});
+    my $report = $model->make_comparison_report_tree($groups);
+    $c->stash( groups => $groups,
+               report => $report,
+               template => 'summaries/page_generic.tt',
+           );
 }
 
 1;
