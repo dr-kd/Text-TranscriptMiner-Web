@@ -1,4 +1,17 @@
-[% USE dumper; %]
+[% MACRO process_groups(line, inner) BLOCK %]
+<table class="sample">
+<tr>
+[% FOREACH l IN line %]
+<th> [% l %]</th>
+[% END %]
+</tr><tr>
+[% FOREACH l IN line %]
+<td id="[% l %]">[% inner %]</td>
+[% END %]
+</tr>
+</table>
+[% END %]
+
 [% MACRO render_menu(corpus) BLOCK  -%]
 <ul id="tree">
 [% all_nodes(corpus) %]
@@ -18,10 +31,9 @@
 [%- END -%]
 </ul>
 
-
 [% MACRO print_metadata(node) BLOCK -%]
 [% FOREACH i IN item.getAllChildren %]
-<li id="[% i.getNodeValue() %]"><h3>NODE: [% i.getMetaDataFor('description') %]</h3></li>
+<li id="[% i.getNodeValue() %]"><h3>[% i.getMetaDataFor('description') %]</h3></li>
 <div class="[% i.getNodeValue %]" >
 <div class="data" style="display:none">
 <xml id="[% i.getNodeValue%]">
@@ -29,10 +41,27 @@
 </xml>
 </div>
 <div class="display">
-<table>
-<tr><th>content</th></tr>
+[% SET last_two = groups.slice(-2,-1) %]
+[% SET groups_head = groups.slice(0,-3).reverse %]
+[% SET inner  = render_final_table(last_two); %]
+[% WHILE (row = groups_head.pop) %]
+[% process_groups(row, inner) %]
+[% END %]
+</div>
+</div>
+[% END %]
+[% END %]
+
+[% MACRO render_final_table(groupings) BLOCK %]
+[% SET x = groupings.last; SET y = groupings.first; %]
+<table class="summary">
+<tr><th></th>[% FOREACH col IN y %]<th>[% col %]</th>[% END %]</tr>
+[% FOREACH cell IN x %]
+<tr id="[% cell %]"><td>[% cell %]</td>
+[% FOREACH col IN y %] <td id="[% col %]"> </td> [% END %] </tr>
+[% END %]
 </table>
-</div>
-</div>
 [% END %]
-[% END %]
+
+
+
