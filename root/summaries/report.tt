@@ -1,5 +1,16 @@
+[% MACRO render_final_table(groupings) BLOCK %]
+[% SET x = groupings.last; SET y = groupings.first; %]
+<table class="summary">
+<tr><th></th>[% FOREACH col IN y %]<th>[% col %]</th>[% END %]</tr>
+[% FOREACH cell IN x %]
+<tr id="[% cell %]"><td>[% cell %]</td>
+[% FOREACH col IN y %] <td id="[% col %]"> </td> [% END %] </tr>
+[% END %]
+</table>
+[% END %]
+
 [% MACRO process_groups(line, inner) BLOCK %]
-<table class="sample">
+<table>
 <tr>
 [% FOREACH l IN line %]
 <th> [% l %]</th>
@@ -42,26 +53,14 @@
 </div>
 <div class="display">
 [% SET last_two = groups.slice(-2,-1) %]
-[% SET groups_head = groups.slice(0,-3).reverse %]
+[% SET groups_head = groups.slice(0,-3)%]
 [% SET inner  = render_final_table(last_two); %]
 [% WHILE (row = groups_head.pop) %]
-[% process_groups(row, inner) %]
+[% inner = process_groups(row, inner) %]
 [% END %]
+[% inner %]
 </div>
 </div>
 [% END %]
 [% END %]
-
-[% MACRO render_final_table(groupings) BLOCK %]
-[% SET x = groupings.last; SET y = groupings.first; %]
-<table class="summary">
-<tr><th></th>[% FOREACH col IN y %]<th>[% col %]</th>[% END %]</tr>
-[% FOREACH cell IN x %]
-<tr id="[% cell %]"><td>[% cell %]</td>
-[% FOREACH col IN y %] <td id="[% col %]"> </td> [% END %] </tr>
-[% END %]
-</table>
-[% END %]
-
-
 
