@@ -1,5 +1,4 @@
 [%- PROCESS summaries/colours.tt -%]
-[%- PROCESS summaries/js.tt %]
 <head>
 <!--[if IE]><script src="http://www.uow.edu.au/~kd21/uploads/excanvas.compiled.js"></script><![endif]-->
 </head>

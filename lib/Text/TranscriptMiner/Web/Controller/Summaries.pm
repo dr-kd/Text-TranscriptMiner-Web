@@ -30,7 +30,6 @@ sub page :Path('page') :Args(0) {
 
 sub page_generic :Path('page_generic') :Args(0) {
     my ($self, $c) = @_;
-    $DB::single=1;
     my $groups = [];
     foreach my $p (keys %{$c->req->params}) {
         next unless $p =~ /^\d+$/;
