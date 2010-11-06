@@ -1,3 +1,11 @@
+[% MACRO insert_cell_data(cell_contents) BLOCK %]
+[% FOREACH content IN cell_contents %]
+<div id="[% content.path.join('/') %]" class="coded_chunk">
+<pre>[% content.txt.join("\n-----\n") %]</pre>
+</div>
+[% END %]
+[% END %]
+
 [% MACRO render_final_table(groupings, final_path) BLOCK %]
 [% SET x = groupings.last; SET y = groupings.first; %]
 <table class="summary">
@@ -5,7 +13,7 @@
 [% FOREACH cell IN x %]
 <tr class="[% cell %]"><td>[% cell %]</td>
 [% FOREACH col IN y %] <td class="cell_data [% col %]">
-[% cmp_model.get_results_for_node(final_path.merge([col, cell])).join('<br>') %] </td> [% END %] </tr>
+[% insert_cell_data(cmp_model.get_results_for_node(final_path.merge([col, cell]))) %] </td> [% END %] </tr>
 [% END %]
 </table>
 [% END %]
