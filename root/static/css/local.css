@@ -28,12 +28,14 @@ div.result {
     background: #fee
 }
 
-div.hs {
+span.coded_chunk {
     display: none
 }
 
-table.summary { border: 10px solid #789DB3;}
-table.summary td { border: 2px; text-align: left; background-color: #eef; border: 1px solid white; text-align: left }
+td {  vertical-align: top;}
+table.summary { border: 10px solid #789DB3; vertical-align: top; border-collapse:collapse;}
+table.summary tr {background-color: #eef; vertical-align: top;  }
+table.summary td { border: 2px; text-align: left; border: 1px solid white; text-align: left }
 table.summary th { border: none; background-color: #ccf; text-align: center; padding-right:5px;  }
 
 

@@ -5,17 +5,16 @@
 <script type="text/javascript">
 </script>
 <style type="text/css">
-[% FOREACH category IN comparisons.categories; colour_index = loop.count mod loop.size -%]
-
-table.summary td.[% category.replace('\.txt$','') FILTER upper %] { background : [% colours.${colour_index} %] ; }
+[% FOREACH category IN groups.last; colour_index = loop.count mod loop.size -%]
+table.summary tr.[% category %] { background : [% colours.${colour_index} %] ; }
    [% END %]
 </style>
 
 <script type="text/javascript">
 $(document).ready(function() {
-[% FOREACH category IN comparisons.categories; colour_index = loop.count mod loop.size -%]
-   $('#[% category.replace('\.txt$','') FILTER upper %]').click( function() {
-    $('table.summary td.[% category.replace('\.txt$','') FILTER upper %]').toggle(); return false;
+[% FOREACH category IN groups.last; -%]
+   $('#[% category %]').click( function() {
+    $('table.summary tr.[% category %]').toggle(); return false;
    });
 [% END %]
 
@@ -35,7 +34,11 @@ $(document).ready(function() {
 <div class="unit on-2 columns">  
     <div class="container" style="width:800px;">
         <div style="position: fixed; margin-left: 800px; float: right; border: 1px solid black; padding: 1em;">
-        ... sidebar menu
+<ul stype="display: inline">
+[% FOREACH category IN groups.last; %]
+<li><a href="#" id="[% category %]">Show/Hide [% category %]</a></li> 
+[% END %]
+</ul>
         </div>
         <div class="fixed column" style="width:650px;">  
         <h2> Search Summary </h2>
@@ -44,8 +47,7 @@ $(document).ready(function() {
         [% END %]
         <a href="[% c.req.uri %]">Saved Search</a>
         [%# PROCESS summaries/search_form.tt %]
-        <h2> Tabular report here </h2>
-        [% USE dumper; dumper.dump_html(tags) %]
+        <h2> Report </h2>
         [% PROCESS summaries/report.tt %]
         [% render_menu(report) %]
         </div>  

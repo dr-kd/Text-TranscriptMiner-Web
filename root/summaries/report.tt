@@ -1,9 +1,17 @@
 [% MACRO insert_cell_data(cell_contents) BLOCK %]
+<ul id="[% content.path.join('/') %]">
 [% FOREACH content IN cell_contents %]
-<div id="[% content.path.join('/') %]" class="coded_chunk">
+[% IF content.txt.size %]
+[% IF loop.index == 0 %] </li><a href="#" class="context">Show/hide transcript[%
+IF cell_contents.size > 1; "s (" _ cell_contents.size _ " results)"; END
+%]</a></li> [% END %]
+<span class="coded_chunk">
 <pre>[% content.txt.join("\n-----\n") %]</pre>
-</div>
+</span>
+<li id="notes">(Add notes here)</li>
 [% END %]
+[% END %]
+</ul>
 [% END %]
 
 [% MACRO render_final_table(groupings, final_path) BLOCK %]
@@ -12,7 +20,7 @@
 <tr><th></th>[% FOREACH col IN y %]<th>[% col %]</th>[% END %]</tr>
 [% FOREACH cell IN x %]
 <tr class="[% cell %]"><td>[% cell %]</td>
-[% FOREACH col IN y %] <td class="cell_data [% col %]">
+[% FOREACH col IN y %] <td class="[% col %]">
 [% insert_cell_data(cmp_model.get_results_for_node(final_path.merge([col, cell]))) %] </td> [% END %] </tr>
 [% END %]
 </table>
