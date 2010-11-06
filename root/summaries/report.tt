@@ -4,11 +4,12 @@
 <tr><th></th>[% FOREACH col IN y %]<th>[% col %]</th>[% END %]</tr>
 [% FOREACH cell IN x %]
 <tr class="[% cell %]"><td>[% cell %]</td>
-[% FOREACH col IN y %] <td class="cell_data [% col %]">[%
-final_path.join('<br>') _ '<br>' _ col _ '<br>' _ cell %] </td> [% END %] </tr>
+[% FOREACH col IN y %] <td class="cell_data [% col %]">
+[% cmp_model.get_results_for_node(final_path.merge([col, cell])).join('<br>') %] </td> [% END %] </tr>
 [% END %]
 </table>
 [% END %]
+
 [% MACRO print_output(data, path_elements, inner_data) BLOCK; %]
 <table> <tr>
 [% current = data.0; remaining = data.slice(1); %]

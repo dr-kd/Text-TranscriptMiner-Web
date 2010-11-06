@@ -41,6 +41,7 @@ sub page_generic :Path('page_generic') :Args(0) {
     my $report = $model->make_comparison_report_tree($groups);
     $c->stash( groups => $groups,
                report => $report,
+               cmp_model => $model,
                template => 'summaries/page_generic.tt',
            );
 }
