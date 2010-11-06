@@ -22,8 +22,9 @@ final_path.join('<br>') _ '<br>' _ col _ '<br>' _ cell %] </td> [% END %] </tr>
 [% SET discard = path_elements.pop %]
 [% ELSE %]
 <td>[% path_elements.push(d); render_final_table(inner, path_elements);
-SET discard = path.elements.pop %]</td>
+       SET discard = path.elements.pop %]</td>
 [% END %]
+[% SET discard = path_elements.pop %]
 [% END %]
 </tr></table>
 [% END %]
@@ -55,7 +56,7 @@ SET discard = path.elements.pop %]</td>
 <div class="display">
 [% SET inner = groups.slice(-2,-1) %]
 [% SET outer = groups.slice(0,-3)%]
-[% SET path = []; print_output(outer, path); %]
+[% SET path = [i.getNodeValue]; print_output(outer, path); %]
 </div>
 </div>
 [% END %]
