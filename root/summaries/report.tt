@@ -1,14 +1,17 @@
 [% MACRO insert_cell_data(cell_contents) BLOCK %]
 <ul id="[% content.path.join('/') %]">
 [% FOREACH content IN cell_contents %]
-[% IF content.txt.size %]
-[% IF loop.index == 0 %] </li><a href="#" class="context">Show/hide transcript[%
-IF cell_contents.size > 1; "s (" _ cell_contents.size _ " results)"; END
-%]</a></li> [% END %]
+[% FOREACH txt IN content.txt %]
+<div class="context">
+
+<a class="context" href="#">show/hide transcript</a>
 <span class="coded_chunk">
-<pre>[% content.txt.join("\n-----\n") %]</pre>
+<h4>[% i.getMetaDataFor('description') %]</h4>
+<a class="context_hide" href="#">hide</a>
+<pre>[% txt %]</pre>
 </span>
-<li id="notes">(Add notes here)</li>
+</div>
+<li>...</li>
 [% END %]
 [% END %]
 </ul>
@@ -21,8 +24,9 @@ IF cell_contents.size > 1; "s (" _ cell_contents.size _ " results)"; END
 [% FOREACH cell IN x %]
 <tr class="[% cell %]"><td>[% cell %]</td>
 [% FOREACH col IN y %] <td class="[% col %]">
-[% insert_cell_data(cmp_model.get_results_for_node(final_path.merge([col, cell]))) %] </td> [% END %] </tr>
+[% SET cell_path = final_path.merge([col,cell]); insert_cell_data(cmp_model.get_results_for_node(cell_path)) %] </td> [% END %] </tr>
 [% END %]
+<tr class="notes"><td>Notes: </td><td colspan="[% x.size %]"><br><br></td>
 </table>
 [% END %]
 

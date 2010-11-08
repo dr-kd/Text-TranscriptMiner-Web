@@ -22,6 +22,9 @@ $(document).ready(function() {
        $(this).parent().children('span').toggle(); return false;
    });
 
+   $('a.context_hide').click(function() {
+       $(this).parent().hide();
+   });
 
 });
 
@@ -48,8 +51,12 @@ $(document).ready(function() {
         <a href="[% c.req.uri %]">Saved Search</a>
         [%# PROCESS summaries/search_form.tt %]
         <h2> Report </h2>
+
         [% PROCESS summaries/report.tt %]
+        <form action="#" method="post">
         [% render_menu(report) %]
+        <input type="submit" value="Save Notes">
+        </form>
         </div>  
     </div>  
  </div>  
