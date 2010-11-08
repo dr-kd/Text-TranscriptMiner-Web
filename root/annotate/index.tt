@@ -1,0 +1,2 @@
+[% PROCESS annotate/menu.tt %]
+[% render_menu(code_tree); %]

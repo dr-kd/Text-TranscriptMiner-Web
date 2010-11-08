@@ -1,0 +1,17 @@
+[% USE dumper;  %]
+[% FOREACH r IN results %]
+[% IF r.result.0.txt.size > 0 %]
+<h4>[% r.path.join('/') %]</h4>
+<p><pre>[% r.result.0.txt.join("\n-----\n") %]</pre>
+<form action="do_annotate" method="post" name="[% r.result.0.path %]">
+<input type="hidden" name="file" value="[% r.result.0.path %]">
+<input type="hidden" name="code" value="[% code %]">
+<textarea name="notes" style="height: 10em; width: 72em
+[%- IF r.result.0.notes.status == 'outdated'; %]class="outdated"[% END -%]
+"> [% r.result.0.notes.notes %] </textarea>
+<br><input type="submit" value = "Save Notes">
+</p>
+</form>
+<hr><br>
+[% END %]
+[% END %]

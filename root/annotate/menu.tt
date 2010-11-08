@@ -1,0 +1,30 @@
+[% MACRO render_menu(corpus) BLOCK  -%]
+<ul id="tree">
+[% render_submenu(corpus) %]
+</div>
+[% END %]
+
+[%- MACRO render_submenu(node) BLOCK -%]
+[%- FOREACH item IN node.getAllChildren -%]
+[% NEXT IF item.getNodeValue == "descr.txt" %]
+<li> [% print_metadata(node) %] 
+[% IF item.getAllChildren.size %]   <ul> [% render_submenu(item) %] </ul> [% END %]  </li> 
+[%- END -%]
+[%- END -%]
+</ul>
+
+[% MACRO print_metadata(node) BLOCK -%]
+[% FOREACH i IN item.getAllChildren %]
+<li id="[% i.getNodeValue() %]"><h3>[% i.getMetaDataFor('description') %]</h3>
+<form action="[% c.uri_for(annotate_code, i.getNodeValue()) %]" method="get">
+[% FOREACH group IN groups; SET row = loop.index %]
+[% FOREACH g IN group %]
+<input type="checkbox" name="[% row %]" value="[% g %]">[% g %]</input>
+[% END %]
+<br>
+[% END %]
+<input type="submit" value="Annotate '[% i.getMetaDataFor('description') %]'">
+</li>
+[% END %]
+[% END %]
+
