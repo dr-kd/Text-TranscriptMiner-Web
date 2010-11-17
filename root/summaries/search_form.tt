@@ -1,6 +1,20 @@
+[% MACRO render_menu(corpus) BLOCK  -%]
+<ul>
+<li>[% render_submenu(corpus) %]</li>
+</ul>
+[% END %]
+
+[%- MACRO render_submenu(node) BLOCK -%]
+[%- FOREACH this_item IN node.getAllChildren -%]
+<li> <input type="checkbox" name="code" value = "[% this_item.getNodeValue%]"> [% this_item.fetchMetaData('description') %]</input>  
+[% IF this_item.getAllChildren.size %]   <ul> [% render_submenu(this_item) %] </ul> [% END %]  </li> 
+[%- END -%]
+</ul>
+[%- END -%]
+
 <table>
          <form action="[% c.uri_for('page_generic') %]" method="get">
-         
+         <td><td colspan="[% groups.size %]"><input type="submit" name="submit" value="Generate Report"> </td></tr>
          <tr>
          [% FOREACH i IN groups %] <th> Level [% loop.count %] </th> [% END %]
          </tr>
@@ -13,6 +27,8 @@
          <input type="checkbox" name="[% loop.index %]"  value ="[% j.$k %]">[% j.$k %]</input> [% END %] </td>
          [%- END %]
          </tr> [% END %]
+         <tr><td colspan="[% groups.size %]"><input type="checkbox" name="all_codes" value="1">All codes (overrides the below)</input></td></tr>
+         <tr><td colspan="[% groups.size %]">[% render_menu(tags) %] </td></tr>
 <td><td colspan="[% groups.size %]"><input type="submit" name="submit" value="Generate Report"> </td></tr>
-             </form>
+</form>
              </table>

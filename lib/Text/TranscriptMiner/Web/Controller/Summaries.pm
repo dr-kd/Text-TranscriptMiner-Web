@@ -8,7 +8,11 @@ use Text::TranscriptMiner::Corpus::Comparisons;
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     my $model = Text::TranscriptMiner::Corpus::Comparisons->new({start_dir => $c->config->{start_dir}});
-    $c->stash(groups => $model->groups);
+    my $tags = $model->get_all_tags_for_interviews();
+    my $named_tags = $model->get_code_structure(undef, $tags);
+    $c->stash(groups => $model->groups,
+              tags   => $named_tags,
+          );
 }
 
 sub end : ActionClass('RenderView') {}
@@ -30,18 +34,33 @@ sub page :Path('page') :Args(0) {
 
 sub page_generic :Path('page_generic') :Args(0) {
     my ($self, $c) = @_;
-    my $groups = [];
-    foreach my $p (keys %{$c->req->params}) {
-        next unless $p =~ /^\d+$/;
-        $groups->[$p] = $c->req->params->{$p};
-        $groups->[$p] = [$groups->[$p]] if ! ref($groups->[$p]);
-    }
+    my $codes = $c->req->params->{code};
+    $codes = [$codes] if ! ref($codes);
+    my %included_codes;
     my $model = $c->model('CorpusComparison')
         ->new({start_dir => $c->config->{start_dir}});
+
+    my $groups = [];
+    foreach my $p (keys %{$c->req->params}) {
+        if ( $p =~ /^\d+$/ ) {
+            $groups->[$p] = $c->req->params->{$p};
+            $groups->[$p] = [$groups->[$p]] if ! ref($groups->[$p]);
+        }
+    }
+    if (! $c->req->params->{all_codes}) {
+        foreach my $c (@$codes) {
+            $included_codes{$c} = '';
+        }
+    }
+    else {
+        %included_codes = %{$model->get_all_tags_for_interviews};
+    }
+
     my $report = $model->make_comparison_report_tree($groups);
     $c->stash( groups => $groups,
                report => $report,
                cmp_model => $model,
+               included_codes => \%included_codes,
                template => 'summaries/page_generic.tt',
            );
 }

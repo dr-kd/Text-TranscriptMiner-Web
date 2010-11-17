@@ -1,0 +1,14 @@
+// -*- mode: javascript -*-
+
+$(document).ready(function() {
+    $('.annotate').submit(function(){
+//        var mycode = $('input[name=code]').val();
+//        var mynotes=$('textarea[name=notes]').val();
+//        var myfile=$('input[name=file]').val();
+        var action = $(this).attr('action');
+        var data = $(this).serialize();
+        $.post(action,data);
+        return false;
+    });
+});                       
+

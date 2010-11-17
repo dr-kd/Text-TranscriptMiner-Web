@@ -24,6 +24,7 @@
 <br>
 [% END %]
 <input type="submit" value="Annotate '[% i.getMetaDataFor('description') %]'">
+</form>
 </li>
 [% END %]
 [% END %]

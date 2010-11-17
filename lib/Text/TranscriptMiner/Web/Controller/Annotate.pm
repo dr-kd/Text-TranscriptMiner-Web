@@ -31,12 +31,32 @@ sub annotate :Path :Args(1) {
         $item->{path} = $p;
         $item->{code} = $code;
         $item->{result} = $model->get_results_for_node([$code, @$p]);
-        push @results, $item;
+        push @results, { path => $p,
+                         code => $code,
+                         result => $model->get_results_for_node([$code, @$p]),
+                     };
+    }
+    my @final_results;
+    foreach my $r (@results) {
+        next unless @{$r->{result}};
+        my $this_code = $r->{code};
+        my $this_path = $r->{path};
+        foreach my $res (@{$r->{result}}) {
+            $DB::single=1;
+            push @final_results,
+                { code => $this_code,
+                  path => $res->{path},
+                  txt  => join ("\n------------\n", @{$res->{txt}}),
+                  notes => { note => $res->{notes}->{notes},
+                            status => $res->{notes}->{status},
+                         },
+              };
+        }
     }
     $c->stash( groups  => $groups,
                paths   => $paths,
                code    => $code,
-               results => \@results,
+               results => \@final_results,
            );
 }
 

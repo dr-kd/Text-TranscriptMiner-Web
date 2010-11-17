@@ -1,21 +1,4 @@
-[% MACRO insert_cell_data(cell_contents) BLOCK %]
-<ul id="[% content.path.join('/') %]">
-[% FOREACH content IN cell_contents %]
-[% FOREACH txt IN content.txt %]
-<div class="context">
-
-<a class="context" href="#">show/hide transcript</a>
-<span class="coded_chunk">
-<h4>[% i.getMetaDataFor('description') %]</h4>
-<a class="context_hide" href="#">hide</a>
-<pre>[% txt %]</pre>
-</span>
-</div>
-<li>...</li>
-[% END %]
-[% END %]
-</ul>
-[% END %]
+[% PROCESS summaries/insert_cell_data.tt %]
 
 [% MACRO render_final_table(groupings, final_path) BLOCK %]
 [% SET x = groupings.last; SET y = groupings.first; %]
@@ -24,9 +7,8 @@
 [% FOREACH cell IN x %]
 <tr class="[% cell %]"><td>[% cell %]</td>
 [% FOREACH col IN y %] <td class="[% col %]">
-[% SET cell_path = final_path.merge([col,cell]); insert_cell_data(cmp_model.get_results_for_node(cell_path)) %] </td> [% END %] </tr>
+[% SET cell_path = final_path.merge([col,cell]); insert_cell_data(cell_path) %] </td> [% END %] </tr>
 [% END %]
-<tr class="notes"><td>Notes: </td><td colspan="[% x.size %]"><br><br></td>
 </table>
 [% END %]
 
@@ -72,6 +54,7 @@
 
 [% MACRO print_metadata(node) BLOCK -%]
 [% FOREACH i IN item.getAllChildren %]
+[% IF included_codes.exists(i.getNodeValue) %]
 <li id="[% i.getNodeValue() %]"><h3>[% i.getMetaDataFor('description') %]</h3></li>
 <div class="[% i.getNodeValue %]" >
 <div class="display">
@@ -80,6 +63,7 @@
 [% SET path = [i.getNodeValue]; print_output(outer, path); %]
 </div>
 </div>
+[% END %]
 [% END %]
 [% END %]
 

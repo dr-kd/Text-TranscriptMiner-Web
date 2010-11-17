@@ -1,0 +1,18 @@
+[% MACRO insert_cell_data(this_cell) BLOCK %]
+[% SET cell_contents = cmp_model.get_results_for_node(this_cell) %]
+[% FOREACH content IN cell_contents %]
+[% IF content.txt.size %]
+<ul id="[% content.path.join('/') %]">
+<div class="context">
+<a class="context" href="#">show/hide transcript</a>
+<span class="coded_chunk">
+<h4>[% i.getMetaDataFor('description') %]</h4>
+<a class="context_hide" href="#">hide</a>
+<pre>[% content.txt.join("\n--------\n") %]</pre>
+</span>
+</div>
+<li>[% content.notes.notes %]</li>
+</ul>
+[% END %]
+[% END %]
+[% END %]
