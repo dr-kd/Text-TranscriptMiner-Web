@@ -13,6 +13,11 @@
 <form class="annotate" action="[% c.uri_for('/annotate/do_annotate') %]" method="post" name="[% final_path.join('/'); SET this_code = final_path.shift %]">
 <input type="hidden" name="file" value="[% final_path.join('/') %]">
 <input type="hidden" name="code" value ="[% this_code %]">
+<script type='text/javascript'>
+  $(function() {
+    $('textarea').autogrow();
+  });
+</script>
 <textarea name="notes" style="height: 10em; width:41em">[% cmp_model.get_notes(final_path.join('/'), this_code).notes %]</textarea>
 <input type="submit" name="submit" value="Save notes">
 </form>

@@ -27,7 +27,8 @@ $(document).ready(function() {
    });
 
 });
-
+[% PROCESS annotate/js.tt %]
+[% PROCESS summaries/autogrow.tt %]
 
 </script>
 
