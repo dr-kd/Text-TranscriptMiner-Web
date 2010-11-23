@@ -9,6 +9,14 @@
 [% FOREACH col IN y %] <td class="[% col %]">
 [% SET cell_path = final_path.merge([col,cell]); insert_cell_data(cell_path) %] </td> [% END %] </tr>
 [% END %]
+<tr><td>Notes</td><td colspan = "[% x.size %]">
+<form class="annotate" action="[% c.uri_for('/annotate/do_annotate') %]" method="post" name="[% final_path.join('/'); SET this_code = final_path.shift %]">
+<input type="hidden" name="file" value="[% final_path.join('/') %]">
+<input type="hidden" name="code" value ="[% this_code %]">
+<textarea name="notes" style="height: 10em; width:41em">[% cmp_model.get_notes(final_path.join('/'), this_code).notes %]</textarea>
+<input type="submit" name="submit" value="Save notes">
+</form>
+</td></tr>
 </table>
 [% END %]
 
@@ -47,7 +55,8 @@
 [%- FOREACH item IN node.getAllChildren -%]
 [% NEXT IF item.getNodeValue == "descr.txt" %]
 <li> [% print_metadata(node) %] 
-[% IF item.getAllChildren.size %]   <ul> [% render_submenu(item) %] </ul> [% END %]  </li> 
+[% IF item.getAllChildren.size %]   <ul> [% render_submenu(item) %] </ul> [% END %]
+ </li>
 [%- END -%]
 [%- END -%]
 </ul>
@@ -55,7 +64,7 @@
 [% MACRO print_metadata(node) BLOCK -%]
 [% FOREACH i IN item.getAllChildren %]
 [% IF included_codes.exists(i.getNodeValue) %]
-<li id="[% i.getNodeValue() %]"><h3>[% i.getMetaDataFor('description') %]</h3></li>
+<li id="[% i.getNodeValue() %]"><h3>[% i.getMetaDataFor('description') %]</h3> ([% i.getNodeValue %]) </li>
 <div class="[% i.getNodeValue %]" >
 <div class="display">
 [% SET inner = groups.slice(-2,-1) %]
