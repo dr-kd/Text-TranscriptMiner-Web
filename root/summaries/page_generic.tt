@@ -60,9 +60,7 @@ $(document).ready(function() {
         <h2> Report </h2>
 
         [% PROCESS summaries/report.tt %]
-        <form action="#" method="post">
         [% render_menu(report) %]
-        <input type="submit" value="Save Notes">
         </form>
         </div>  
     </div>  

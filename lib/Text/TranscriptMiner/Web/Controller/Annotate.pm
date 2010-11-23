@@ -63,7 +63,6 @@ sub annotate :Path :Args(1) {
 
 sub do_annotate :Path('do_annotate') :Args(0) {
     my ($self, $c) = @_;
-    use YAML;
     my $file = $c->req->params->{file};
     my $notes = $c->req->params->{notes};
     my $code = $c->req->params->{code};
