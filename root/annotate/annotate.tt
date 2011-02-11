@@ -3,6 +3,7 @@
 </script>
 </head>
 [% FOREACH res IN results %]
+[% NEXT IF c.req.params.empty_only == 1 && res.notes.note %]
 <h4><a target="_blank" href="[% c.uri_for('/docs', res.path) %]">[% res.path.join('/') %]</a></h4>
 <pre style="max-height: 30em; overflow: auto border: 1px solid blue">
 [% res.txt %]
