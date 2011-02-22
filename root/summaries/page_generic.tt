@@ -45,7 +45,7 @@ $(document).ready(function() {
 </ul>
         </div>
         <div class="fixed column" style="width:650px;">  
-        <h2> Search Summary </h2>
+        <h2> Search for: [% c.stash.title %] </h2>
         [% FOREACH p IN c.req.params;
            NEXT IF p.values.list.last == "submit";
            NEXT IF p.values.list.last.match('code') %]

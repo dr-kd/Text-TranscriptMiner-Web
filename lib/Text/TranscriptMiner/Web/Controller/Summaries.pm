@@ -57,10 +57,26 @@ sub page_generic :Path('page_generic') :Args(0) {
     }
 
     my $report = $model->make_comparison_report_tree($groups);
+    my @items = grep { $_ =~ /^\d+$/ } keys %{$c->req->params};
+    my @search_terms;
+    foreach (sort @items) {
+        push @search_terms, $c->req->params->{$_}
+            if ! ref($c->req->params->{$_});
+    }
+    if ($c->req->params->{all_codes}) {
+        push @search_terms, '(all codes)';
+    }
+    else {
+        my $codes = $c->req->params->{code};
+        $codes = [ $codes ] if ! ref($codes);
+        push @search_terms, "(codes: " .
+            join ("," . @{$codes}) . ")";
+    }
     $c->stash( groups => $groups,
                report => $report,
                cmp_model => $model,
                included_codes => \%included_codes,
+               title => 'Report: ' . join ('/', @search_terms),
                template => 'summaries/page_generic.tt',
            );
 }
