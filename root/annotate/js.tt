@@ -10,5 +10,10 @@ $(document).ready(function() {
         $.post(action,data);
         return false;
     });
+    $('.edit').click(function(){
+        var action = $(this).attr('href');
+        $.get(action);
+        return false;
+    });
 });                       
 

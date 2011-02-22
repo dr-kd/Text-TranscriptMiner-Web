@@ -3,6 +3,7 @@ use warnings;
 use strict;
 use parent 'Catalyst::Controller';
 use Text::TranscriptMiner::Corpus::Comparisons;
+use Path::Class;
 
 sub index :Path :Args(0) {
     my ($self, $c) = @_;
@@ -71,6 +72,16 @@ sub do_annotate :Path('do_annotate') :Args(0) {
     my $response = $model->write_notes($file, $notes, $code);
     $c->res->body('response');
 }
+
+sub edit :Path('edit') :Args(0) {
+    my ($self, $c) = @_;
+    my $file = $c->req->params->{file};
+    my $path = Path::Class::Dir->new($c->config->{start_dir})->subdir($file);
+    my $cmd = $c->config->{editor_cmd} . ' ' . $path;
+    $DB::single = 1;
+    system $cmd;
+    $c->res->body('opened');
+}
     
 sub get_paths {
     my ($groups, $paths,  @path_elements) = @_;
@@ -85,7 +96,6 @@ sub get_paths {
         }
     }
 }
-
 
 
 1;
